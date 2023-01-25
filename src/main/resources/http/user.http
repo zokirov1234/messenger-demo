@@ -1,0 +1,24 @@
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name" : "john",
+  "phoneNumber" : "665432355",
+  "username" : "john",
+  "password" : "123"
+}
+
+###
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+"username" : "josh",
+"password" : "123"
+}
+
+###
+
+//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NjQ0ODQ4LCJleHAiOjE2NzQ2NDg0NDh9.grbAzyN7DXjNVquIjxns0krTOYUfatLsHi63mw8zDibAKT7Jkq0vzUiTUZkrUmculTW0Kh77GO-6hfluQNdwbw
+

@@ -1,0 +1,14 @@
+GET http://localhost:8080/message/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NjQyOTgyLCJleHAiOjE2NzQ2NDY1ODJ9.3V2Fnd0PlIlCutG1RkdJGhDRN0J8qxstE1tumSNfZzVrY2pntx1qjtZl6h5nw-a2f400DuSWKG5JlNONz_n-kw
+
+###
+
+POST http://localhost:8080/message/send
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NjQyOTgyLCJleHAiOjE2NzQ2NDY1ODJ9.3V2Fnd0PlIlCutG1RkdJGhDRN0J8qxstE1tumSNfZzVrY2pntx1qjtZl6h5nw-a2f400DuSWKG5JlNONz_n-kw
+Content-Type: application/json
+
+{
+  "chatId" : 2,
+  "message" : "alright",
+  "friendId" : 3
+}

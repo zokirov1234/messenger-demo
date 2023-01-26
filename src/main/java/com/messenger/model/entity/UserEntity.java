@@ -33,6 +33,8 @@ public class UserEntity {
 
     private String password;
 
+    private boolean isDeleted;
+
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<RoleEntity> userRoles = new HashSet<>();
 

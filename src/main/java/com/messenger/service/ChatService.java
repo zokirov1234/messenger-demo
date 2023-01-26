@@ -23,23 +23,22 @@ public class ChatService {
 
     public List<ChatUserDTO> getChatOfUser(String username) {
 
-        Optional<UserEntity> user = userRepository.findByUsername(username);
+        UserEntity user = userRepository.findByUsernameForServices(username);
 
-        if (user.isEmpty()) {
-            throw new BadRequestException("User not found");
-        }
 
         List<ChatUserDTO> chats = new ArrayList<>();
-        List<ChatUserEntity> friendsByChatId = chatUserRepository.getFriendsByChatId(user.get().getId());
+        List<ChatUserEntity> friendsByChatId = chatUserRepository.getFriendsByChatId(user.getId());
 
         for (ChatUserEntity chatUser : friendsByChatId) {
-            chats.add(
-                    new ChatUserDTO(
-                            chatUser.getUser().getName(),
-                            chatUser.getUser().getId(),
-                            chatUser.getChat().getId()
-                    )
-            );
+            if (!chatUser.getUser().isDeleted()) {
+                chats.add(
+                        new ChatUserDTO(
+                                chatUser.getUser().getName(),
+                                chatUser.getUser().getId(),
+                                chatUser.getChat().getId()
+                        )
+                );
+            }
         }
 
 

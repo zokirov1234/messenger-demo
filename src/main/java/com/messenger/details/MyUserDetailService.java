@@ -1,4 +1,4 @@
-package com.messenger.config;
+package com.messenger.details;
 
 import com.messenger.model.entity.UserEntity;
 import com.messenger.repository.UserRepository;

@@ -1,7 +1,7 @@
 package com.messenger.service;
 
-import com.messenger.config.JwtUtil;
-import com.messenger.config.SecureUser;
+import com.messenger.util.JwtUtil;
+import com.messenger.details.SecureUser;
 import com.messenger.exp.BadRequestException;
 import com.messenger.model.dto.auth.LoginRequestDTO;
 import com.messenger.model.dto.auth.RegisterRequestDTO;

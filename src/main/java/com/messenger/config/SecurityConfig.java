@@ -1,5 +1,6 @@
 package com.messenger.config;
 
+import com.messenger.details.MyUserDetailService;
 import com.messenger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

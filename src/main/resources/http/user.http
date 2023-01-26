@@ -2,9 +2,9 @@ POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-  "name" : "john",
-  "phoneNumber" : "665432355",
-  "username" : "john",
+  "name" : "josh",
+  "phoneNumber" : "221567433",
+  "username" : "josh",
   "password" : "123"
 }
 
@@ -20,5 +20,9 @@ Content-Type: application/json
 
 ###
 
-//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NjQ0ODQ4LCJleHAiOjE2NzQ2NDg0NDh9.grbAzyN7DXjNVquIjxns0krTOYUfatLsHi63mw8zDibAKT7Jkq0vzUiTUZkrUmculTW0Kh77GO-6hfluQNdwbw
+//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDczNzQ1NCwiZXhwIjoxNjc0NzQxMDU0fQ.Ek5YXfJMljPzBPNqwJ6uDxFp6lj3JZzlWRVjEk262yza6KA2gv-HISB9rMIzWgqNwT54mpDZ30vHhjJHhPGnJw
 
+
+GET http://localhost:8080/user/delete
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIiwiaWF0IjoxNjc0NzE5NTg3LCJleHAiOjE2NzQ3MjMxODd9.CCsBfU9Ov6tkXHbn3KmJSvLC1g7abbJx-cocWB-Z03PutRdj15KAofOce0AmrMteM_e3p04ai9TPHZp0hfrrbQ
+Content-Type: application/json

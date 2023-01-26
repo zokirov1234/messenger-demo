@@ -1,14 +1,25 @@
-GET http://localhost:8080/message/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NjQyOTgyLCJleHAiOjE2NzQ2NDY1ODJ9.3V2Fnd0PlIlCutG1RkdJGhDRN0J8qxstE1tumSNfZzVrY2pntx1qjtZl6h5nw-a2f400DuSWKG5JlNONz_n-kw
+GET http://localhost:8080/message/2
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NzQ5MjE5LCJleHAiOjE2NzQ3NTI4MTl9.NjDlBe7nspuA4iV85fmTiwxYr_U6aGDEcx-P-j7lt5BvFNNKaA6Tknel9Mpc97CNswMw1zpp276U40-37GaGDw
 
 ###
 
 POST http://localhost:8080/message/send
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NjQyOTgyLCJleHAiOjE2NzQ2NDY1ODJ9.3V2Fnd0PlIlCutG1RkdJGhDRN0J8qxstE1tumSNfZzVrY2pntx1qjtZl6h5nw-a2f400DuSWKG5JlNONz_n-kw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDcxNzQ3NCwiZXhwIjoxNjc0NzIxMDc0fQ.o7kmgFZLt3fXanUZD4aLyF595zhPzOQnMI-NUX7igij7jyc72LSFRxiKlos4lKBfttrC7F7ehGDfe0xKELa4bg
 Content-Type: application/json
 
 {
-  "chatId" : 2,
-  "message" : "alright",
-  "friendId" : 3
+  "chatId" : 0,
+  "message" : "Hello programming is easy.",
+  "friendId" : 2
+}
+
+###
+
+POST http://localhost:8080/message/edit
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIiwiaWF0IjoxNjc0NzE2NTIzLCJleHAiOjE2NzQ3MjAxMjN9.nSs85mN57n8y85Z3ULmdmC8tYu1FLccmF_pYSSKr3SnAWIKIzEGcXM6BeHTQe8LihOXOKTuUlQ3DTwwywIamlg
+Content-Type: application/json
+
+{
+  "message" : "Hi",
+  "messageId" : 2
 }

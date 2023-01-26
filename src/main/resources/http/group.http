@@ -1,0 +1,50 @@
+POST http://localhost:8080/group/create
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIiwiaWF0IjoxNjc0NzIzODYwLCJleHAiOjE2NzQ3Mjc0NjB9.McPk6BUvz3PTV698lPKp_kx1qSzw0dhgwdJMX76fTuE-visNTzKnmZFfb8cc78pqpPlHQbftFgCKU6EXK1hxRA
+Content-Type: application/json
+
+{
+  "name" : "Youtube",
+  "description" : "best platform for learning",
+  "usernames" : ["john"]
+}
+
+###
+
+POST http://localhost:8080/group/add/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDc0MTIzNSwiZXhwIjoxNjc0NzQ0ODM1fQ.gtSOV7jWbl8U6mRrrehgIQgv90dB1_Bg0HUR86E7NzQZeHRySooQCZ9kOWBlp6YyUh6L6g1hqEITiBjVlrKD7w
+Content-Type: application/json
+
+{
+  "usernames" : ["josh"],
+  "chatId" : 2,
+  "groupId" : 2
+}
+
+
+###
+
+GET http://localhost:8080/group/leave/2
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NzQ5MjE5LCJleHAiOjE2NzQ3NTI4MTl9.NjDlBe7nspuA4iV85fmTiwxYr_U6aGDEcx-P-j7lt5BvFNNKaA6Tknel9Mpc97CNswMw1zpp276U40-37GaGDw
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/group/remove/users
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDc0MTIzNSwiZXhwIjoxNjc0NzQ0ODM1fQ.gtSOV7jWbl8U6mRrrehgIQgv90dB1_Bg0HUR86E7NzQZeHRySooQCZ9kOWBlp6YyUh6L6g1hqEITiBjVlrKD7w
+Content-Type: application/json
+
+{
+  "chatId" : 1,
+  "usernames" : ["josh"]
+}
+
+###
+
+POST http://localhost:8080/group/give/permission
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDc0MTkxMywiZXhwIjoxNjc0NzQ1NTEzfQ.dsnVTS74VauJU2929iO5BMwMWbyi65i4PZH0bb-zA3ADIXBeXkwJd13GyyFnbnIsZOwEaVDC7YOeZeMMB2y27Q
+Content-Type: application/json
+
+{
+  "groupId" : 2,
+  "username" : "josh"
+}

@@ -1,4 +1,4 @@
-package com.messenger.config;
+package com.messenger.util;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

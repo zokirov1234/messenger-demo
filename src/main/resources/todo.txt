@@ -1,0 +1,19 @@
+        Todo
+
+1. Sign up and sign in with jwt token based (+);
+
+2. Find friends and get all users (+);
+
+3. Send message and get chats (+);
+
+4. Add settings (edit profile, delete profile) (+);
+
+5. Create group(with admin and user) and edit messages (+);
+
+6. Add and remove users from group and give permission if admin, leave group if user (+);
+
+7. Create channel broadcast only owner and add user;
+
+8. Send files (photo, video, document);
+
+

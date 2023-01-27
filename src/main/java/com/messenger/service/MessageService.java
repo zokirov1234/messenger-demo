@@ -37,7 +37,7 @@ public class MessageService {
 
         MessageListDTO messageListDTOS = new MessageListDTO();
         for (MessageEntity message : messages) {
-            if (message.getUser().getId() == user.getId()) {
+            if (message.getSenderId() == user.getId()) {
                 messageListDTOS.setOwnerMessage(List.of(message.getMessage()));
             } else {
                 messageListDTOS.setFriendsMessage(List.of(message.getMessage()));
@@ -82,7 +82,7 @@ public class MessageService {
 
         messageRepository.save(
                 MessageEntity.builder()
-                        .user(owner)
+                        .senderId(owner.getId())
                         .message(messageSendDTO.getMessage())
                         .chat(chatEntity)
                         .build()
@@ -110,7 +110,7 @@ public class MessageService {
                 MessageEntity.builder()
                         .id(message.get().getId())
                         .chat(message.get().getChat())
-                        .user(owner)
+                        .senderId(owner.getId())
                         .message(messageEditDTO.getMessage())
                         .build()
         );

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class UserController {
 
     @PostMapping("/edit")
     public ResponseEntity<?> editProfile(
-            @RequestBody UserUpdateProfile userUpdateProfile
+            @RequestBody @Valid UserUpdateProfile userUpdateProfile
     ) {
         String response = userService.editProfile(userUpdateProfile, CurrentUserUtil.getCurrentUser());
 

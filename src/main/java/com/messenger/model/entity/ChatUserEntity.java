@@ -18,6 +18,7 @@ public class ChatUserEntity {
     private int id;
 
     @ManyToOne
+    @JoinColumn
     private UserEntity user;
 
     @ManyToOne(cascade = CascadeType.ALL)

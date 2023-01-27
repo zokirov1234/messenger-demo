@@ -1,5 +1,6 @@
 package com.messenger.model.entity;
 
+import com.messenger.model.enums.Types;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -12,27 +13,19 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "groups")
-public class GroupEntity {
+@Table(name = "chat_types")
+public class ChatTypes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true)
-    private String name;
+    @Column(unique = true, nullable = false)
+    private String link;
 
-    private String description;
-
-    private int numberOfUsers;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private ChatEntity chat;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private ChatTypes chatTypes;
+    @Enumerated(EnumType.STRING)
+    private Types types;
 
     @CreationTimestamp
-    @Column(name = "created_at")
     private Timestamp createdAt;
 }

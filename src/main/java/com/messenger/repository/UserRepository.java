@@ -23,5 +23,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> getAllByUsername(String username);
     @Modifying
     @Query("update UserEntity u set u.isDeleted = true where u.username = ?1")
-    Integer setDeleted(String username);
+    void setDeleted(String username);
 }

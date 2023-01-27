@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -13,6 +15,8 @@ public class UserUpdateProfile {
 
     private String name;
     private String phoneNumber;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 }

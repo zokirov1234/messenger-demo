@@ -3,8 +3,6 @@ package com.messenger.service;
 import com.messenger.exp.BadRequestException;
 import com.messenger.model.dto.group.GroupAddReceiveDTO;
 import com.messenger.model.dto.group.GroupAddUserDTO;
-import com.messenger.model.dto.group.GroupGivePermission;
-import com.messenger.model.dto.group.GroupRemoveUserDTO;
 import com.messenger.model.entity.*;
 import com.messenger.model.enums.Permission;
 import com.messenger.repository.*;
@@ -90,7 +88,7 @@ public class GroupService {
     }
 
     @Transactional
-    public String addToGroup(GroupAddUserDTO groupAddUserDTO, String username) {
+    public String addToGroup(GroupAddUserDTO groupAddUserDTO) {
 
         Optional<GroupEntity> group = groupRepository.findById(groupAddUserDTO.getGroupId());
 

@@ -2,9 +2,9 @@ POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-  "name" : "josh",
-  "phoneNumber" : "221567433",
-  "username" : "josh",
+  "name" : "test",
+  "phoneNumber" : "356789954",
+  "username" : "test",
   "password" : "123"
 }
 
@@ -14,13 +14,13 @@ POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-"username" : "josh",
+"username" : "test",
 "password" : "123"
 }
 
 ###
 
-//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDczNzQ1NCwiZXhwIjoxNjc0NzQxMDU0fQ.Ek5YXfJMljPzBPNqwJ6uDxFp6lj3JZzlWRVjEk262yza6KA2gv-HISB9rMIzWgqNwT54mpDZ30vHhjJHhPGnJw
+//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0Nzk4OTcwLCJleHAiOjE2NzQ4MDI1NzB9.O-DoAarGBS24SLQi4ivApX2ZVppu-tM48VEKInhuBU4le3EMg18-fcRucstWoYqzd86tV4rpnP2nMDwX02WW7g
 
 
 GET http://localhost:8080/user/delete

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,7 +15,9 @@ import java.util.List;
 @Getter
 public class GroupAddReceiveDTO {
 
+    @NotBlank
     private String name;
     private String description;
+    @NotEmpty
     private List<String> usernames;
 }

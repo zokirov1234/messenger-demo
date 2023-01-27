@@ -12,8 +12,24 @@
 
 6. Add and remove users from group and give permission if admin, leave group if user (+);
 
-7. Create channel broadcast only owner and add user;
+7. Create channel and broadcast only owner and add user and give permission and set validation for checking (+);
 
-8. Send files (photo, video, document);
+//get permission from channel and group
 
+8. Delete group and channel or remove users from channel and delete messages;
 
+//add users to chat_users not group_users or channel_users;
+
+9. Send files (photo, video, document);
+
+10. Set photo on (profile, group, channel);
+
+11. Pin the messages and add messages type read or unread and search messages with date or without date in chats(group,channels ..);
+
+12. Divide the groups and channels into private and public types;
+
+13. Create folders for chats (study, work ..);
+
+14. Review and optimize code and test manually;
+
+15. Add unit testing and mockito;

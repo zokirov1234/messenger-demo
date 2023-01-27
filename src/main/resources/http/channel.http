@@ -1,0 +1,44 @@
+POST http://localhost:8080/channel/create
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODM1NTAyLCJleHAiOjE2NzQ4MzkxMDJ9.MoGT5kugVQDpq99Njx4UainBd9cTj5SNkECR2sKSx7mIVH0RkOVATvMXDF7N9ps-Rti9lWntxbzAa1m-f7N5-w
+Content-Type: application/json
+
+{
+  "channelName" : "java",
+  "description" : "channel for java contents",
+  "channelType" : "PRIVATE",
+  "chatLink" : ""
+}
+
+###
+
+POST http://localhost:8080/channel/broadcast
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0ODM1NjE1LCJleHAiOjE2NzQ4MzkyMTV9.sTfSpoAt1shSv3YUqUUW-6TxBZQRuZkBBxCKrdV9f6LhCI3b-UsY_yY44Ahb9NWTs5eQ4oeBcaayqS1hqntGPQ
+Content-Type: application/json
+
+{
+  "channelId" : 1,
+  "message" : "Hello Iam new admin"
+}
+
+###
+
+POST http://localhost:8080/channel/add/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0ODM1NjE1LCJleHAiOjE2NzQ4MzkyMTV9.sTfSpoAt1shSv3YUqUUW-6TxBZQRuZkBBxCKrdV9f6LhCI3b-UsY_yY44Ahb9NWTs5eQ4oeBcaayqS1hqntGPQ
+Content-Type: application/json
+
+{
+  "channelId" : 1,
+  "usernames" : ["josh"]
+}
+
+###
+
+POST http://localhost:8080/channel/give/permission
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODM1NTAyLCJleHAiOjE2NzQ4MzkxMDJ9.MoGT5kugVQDpq99Njx4UainBd9cTj5SNkECR2sKSx7mIVH0RkOVATvMXDF7N9ps-Rti9lWntxbzAa1m-f7N5-w
+Content-Type: application/json
+
+{
+  "channelId" : 1,
+  "username" : "josh"
+}
+

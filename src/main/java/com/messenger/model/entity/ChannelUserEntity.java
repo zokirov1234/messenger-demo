@@ -11,19 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "group_user")
-public class GroupUserEntity {
+@Table(name = "channel_user")
+public class ChannelUserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn
-    private UserEntity participants;
-
     @Enumerated(EnumType.STRING)
     private Permission permission;
 
+    @ManyToOne
+    @JoinColumn
+    private UserEntity subscribers;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    private GroupEntity group;
+    private ChannelEntity channel;
 }

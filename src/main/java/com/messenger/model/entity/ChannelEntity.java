@@ -1,10 +1,9 @@
 package com.messenger.model.entity;
 
+import com.messenger.model.enums.Types;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Data
 @ToString
@@ -12,27 +11,22 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "groups")
-public class GroupEntity {
+@Table(name = "channel")
+public class ChannelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true)
     private String name;
 
     private String description;
 
-    private int numberOfUsers;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private ChatEntity chat;
+    private int numberOfSubscribers;
 
     @OneToOne(cascade = CascadeType.ALL)
     private ChatTypes chatTypes;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private Timestamp createdAt;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ChatEntity chat;
 }

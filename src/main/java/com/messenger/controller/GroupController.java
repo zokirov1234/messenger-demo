@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/group")
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class GroupController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createGroup(
-            @RequestBody GroupAddReceiveDTO groupAddReceiveDTO
+            @RequestBody @Valid GroupAddReceiveDTO groupAddReceiveDTO
     ) {
 
         String response = groupService.createGroup(groupAddReceiveDTO, CurrentUserUtil.getCurrentUser());
@@ -33,10 +35,10 @@ public class GroupController {
 
     @PostMapping("/add/user")
     public ResponseEntity<?> addGroupUser(
-            @RequestBody GroupAddUserDTO groupAddUserDTO
+            @RequestBody @Valid GroupAddUserDTO groupAddUserDTO
     ) {
 
-        String response = groupService.addToGroup(groupAddUserDTO, CurrentUserUtil.getCurrentUser());
+        String response = groupService.addToGroup(groupAddUserDTO);
 
         return ResponseEntity.ok(response);
     }
@@ -53,7 +55,7 @@ public class GroupController {
 
     @PostMapping("/remove/users")
     public ResponseEntity<?> removeUsersFromGroup(
-            @RequestBody GroupRemoveUserDTO groupRemoveUserDTO
+            @RequestBody @Valid GroupRemoveUserDTO groupRemoveUserDTO
             ) {
 
         String response = groupUserService.removeUsers(groupRemoveUserDTO, CurrentUserUtil.getCurrentUser());
@@ -64,7 +66,7 @@ public class GroupController {
 
     @PostMapping("/give/permission")
     public ResponseEntity<?> givePermission(
-            @RequestBody GroupGivePermission givePermission
+            @RequestBody @Valid GroupGivePermission givePermission
     ) {
         String response = groupUserService.givePermission(givePermission,CurrentUserUtil.getCurrentUser());
 

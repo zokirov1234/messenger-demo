@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface GroupUserRepository extends JpaRepository<GroupUserEntity, Integer> {
     @Modifying
     @Query("delete from GroupUserEntity g where g.group.id = ?1 and g.participants.id = ?2")
-    Integer deleteByGroupIdAndUserId(int groupId, int userId);
+    void deleteByGroupIdAndUserId(int groupId, int userId);
 
 
     Optional<GroupUserEntity> findByGroupIdAndParticipantsId(int groupId, int userId);

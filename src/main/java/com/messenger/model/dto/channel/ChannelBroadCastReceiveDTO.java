@@ -1,8 +1,8 @@
-package com.messenger.model.dto.message;
+package com.messenger.model.dto.channel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
@@ -10,10 +10,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
-public class MessageEditDTO {
+@Getter
+public class ChannelBroadCastReceiveDTO {
 
-    private String message;
     @NotNull
-    private int messageId;
+    private int channelId;
+    private String message;
 }

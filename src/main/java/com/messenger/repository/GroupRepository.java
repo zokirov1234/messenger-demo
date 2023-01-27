@@ -11,7 +11,7 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Integer> {
 
     @Modifying
     @Query("update GroupEntity g set g.numberOfUsers = ?1 where g.id = ?2")
-    Integer setNumberOfUsers(int newUsers, int groupId);
+    void setNumberOfUsers(int newUsers, int groupId);
 
     Optional<GroupEntity> findByChatId(Integer chatId);
 }

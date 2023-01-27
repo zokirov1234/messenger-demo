@@ -15,5 +15,5 @@ public interface ChatUserRepository extends JpaRepository<ChatUserEntity, Intege
     List<ChatUserEntity> getFriendsByChatId(int userId);
 
     @Modifying
-    Integer deleteByUserIdAndChatId(int userId, int chatId);
+    void deleteByUserIdAndChatId(int userId, int chatId);
 }

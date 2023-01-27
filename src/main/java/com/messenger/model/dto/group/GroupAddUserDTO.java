@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,7 +14,10 @@ import java.util.List;
 @Getter
 public class GroupAddUserDTO {
 
+    @NotEmpty
     private List<String> usernames;
+    @NotEmpty
     private int chatId;
+    @NotEmpty
     private int groupId;
 }

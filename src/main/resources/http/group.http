@@ -1,11 +1,11 @@
 POST http://localhost:8080/group/create
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIiwiaWF0IjoxNjc0NzIzODYwLCJleHAiOjE2NzQ3Mjc0NjB9.McPk6BUvz3PTV698lPKp_kx1qSzw0dhgwdJMX76fTuE-visNTzKnmZFfb8cc78pqpPlHQbftFgCKU6EXK1hxRA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODM3NDk1LCJleHAiOjE2NzQ4NDEwOTV9.Jx5KJtfga6EbHdNsk8vVcjAcmn8iaKxFqK6BAjkIrHMjwvdqI66liNrJelT-LOB5PsFugFE0U9_mkjCgNzQvNA
 Content-Type: application/json
 
 {
   "name" : "Youtube",
   "description" : "best platform for learning",
-  "usernames" : ["john"]
+  "usernames" : ["josh"]
 }
 
 ###

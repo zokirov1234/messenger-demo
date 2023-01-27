@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/message")
 @AllArgsConstructor
@@ -26,7 +28,7 @@ public class MessageController {
 
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(
-            @RequestBody MessageSendDTO messageSendDTO
+            @RequestBody @Valid MessageSendDTO messageSendDTO
     ) {
         String response = messageService.sendMessage(messageSendDTO, CurrentUserUtil.getCurrentUser());
 
@@ -35,7 +37,7 @@ public class MessageController {
 
     @PostMapping("/edit")
     public ResponseEntity<?> editMessage(
-            @RequestBody MessageEditDTO messageEditDTO
+            @RequestBody @Valid MessageEditDTO messageEditDTO
     ) {
         String response = messageService.updateMessage(messageEditDTO, CurrentUserUtil.getCurrentUser());
 

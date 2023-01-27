@@ -22,9 +22,7 @@ public class MessageEntity {
 
     private String message;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private UserEntity user;
+    private int senderId;
 
     @ManyToOne
     @JoinColumn(name = "chat_id")

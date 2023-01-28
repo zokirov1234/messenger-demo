@@ -21,6 +21,6 @@ public class ChatUserEntity {
     @JoinColumn
     private UserEntity user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private ChatEntity chat;
 }

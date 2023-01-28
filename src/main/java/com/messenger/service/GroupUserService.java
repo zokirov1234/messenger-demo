@@ -1,6 +1,9 @@
 package com.messenger.service;
 
 import com.messenger.exp.BadRequestException;
+import com.messenger.exp.ItemNotFoundException;
+import com.messenger.exp.NotPermissionException;
+import com.messenger.model.dto.group.GroupGetPermissionReceiveDTO;
 import com.messenger.model.dto.group.GroupGivePermission;
 import com.messenger.model.dto.group.GroupRemoveUserDTO;
 import com.messenger.model.entity.ChatEntity;
@@ -9,6 +12,7 @@ import com.messenger.model.entity.GroupUserEntity;
 import com.messenger.model.entity.UserEntity;
 import com.messenger.model.enums.Permission;
 import com.messenger.repository.*;
+import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class GroupUserService {
 
     private final GroupRepository groupRepository;
@@ -29,73 +34,103 @@ public class GroupUserService {
 
     private final UserRepository userRepository;
 
-    //todo: remove users from group is admin
-    //todo: give permission if admin
+
     @Transactional
     public String removeUsers(GroupRemoveUserDTO groupRemoveUserDTO, String username) {
+        //todo: remove users from group is admin;
 
         UserEntity user = userRepository.findByUsernameForServices(username);
 
-        Optional<ChatEntity> chat = chatRepository.findById(groupRemoveUserDTO.getChatId());
+        ChatEntity chat = chatRepository.findById(groupRemoveUserDTO.getChatId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Chat not found");
+        });
 
-        if (chat.isEmpty()) {
-            throw new BadRequestException("Chat not found");
-        }
+        GroupEntity group = groupRepository.findByChatId(chat.getId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Group not found");
+        });
 
-        Optional<GroupEntity> group = groupRepository.findByChatId(chat.get().getId());
-
-        if (group.isEmpty()) {
-            throw new BadRequestException("Group not found");
-        }
-
-        Optional<GroupUserEntity> groupUser
-                = groupUserRepository.findByGroupIdAndParticipantsId(group.get().getId(), user.getId());
-
-        if (groupUser.isEmpty()) {
+        GroupUserEntity groupUser
+                = groupUserRepository.findByGroupIdAndParticipantsId(group.getId(), user.getId()).orElseThrow(() -> {
             throw new BadRequestException("Not subscribed");
-        }
+        });
 
-        if (groupUser.get().getPermission() == Permission.USER) {
-            throw new BadRequestException("Not allowed");
+        if (groupUser.getPermission() == Permission.USER) {
+            throw new NotPermissionException("Not allowed");
         }
 
         for (String usernames : groupRemoveUserDTO.getUsernames()) {
-            Optional<UserEntity> subscribers = userRepository.findByUsername(usernames);
-            if (subscribers.isEmpty()) {
-                throw new BadRequestException("Not subscribed user");
+            UserEntity subscribers = userRepository.findByUsernameForServices(usernames);
+            if (subscribers == null) {
+                throw new ItemNotFoundException("Not subscribed user");
             }
-            int groupUsersNumbers = group.get().getNumberOfUsers() - 1;
-            groupRepository.setNumberOfUsers(groupUsersNumbers, group.get().getId());
-            chatUserRepository.deleteByUserIdAndChatId(subscribers.get().getId(), chat.get().getId());
-            groupUserRepository.deleteByGroupIdAndUserId(group.get().getId(), subscribers.get().getId());
+            int groupUsersNumbers = group.getNumberOfUsers() - 1;
+            groupRepository.setNumberOfUsers(groupUsersNumbers, group.getId());
+            chatUserRepository.deleteByUserIdAndChatId(subscribers.getId(), chat.getId());
+            groupUserRepository.deleteByGroupIdAndUserId(group.getId(), subscribers.getId());
         }
 
-        return "All users removed";
+        return "success";
     }
 
     @Transactional
     public String givePermission(GroupGivePermission givePermission, String owner) {
-        Optional<GroupEntity> group = groupRepository.findById(givePermission.getGroupId());
+        //todo: give permission if it is admin;
 
-        if (group.isEmpty()) {
+        GroupEntity group = groupRepository.findById(givePermission.getGroupId()).orElseThrow(() -> {
             throw new BadRequestException("Group not found");
+        });
+
+        UserEntity admin = userRepository.findByUsernameForServices(owner);
+
+        GroupUserEntity groupAdmin = groupUserRepository.findByGroupIdAndParticipantsId(group.getId(), admin.getId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("User not found");
+        });
+
+        if (groupAdmin.getPermission() == Permission.USER) {
+            throw new NotPermissionException("Not allowed");
         }
 
-        Optional<UserEntity> admin = userRepository.findByUsername(owner);
-
-        Optional<GroupUserEntity> groupAdmin = groupUserRepository.findByGroupIdAndParticipantsId(group.get().getId(), admin.get().getId());
-
-        if (groupAdmin.get().getPermission() == Permission.USER) {
-            throw new BadRequestException("Not allowed");
+        UserEntity subscriber = userRepository.findByUsernameForServices(givePermission.getUsername());
+        if (subscriber == null) {
+            throw new ItemNotFoundException("User not found");
         }
 
-        Optional<UserEntity> subscriber = userRepository.findByUsername(givePermission.getUsername());
-        if (subscriber.isEmpty()) {
-            throw new BadRequestException("User not found");
+        groupUserRepository.setPermission(Permission.ADMIN, group.getId(), subscriber.getId());
+
+        return "success";
+    }
+
+    public String getPermission(GroupGetPermissionReceiveDTO receiveDTO) {
+        //todo : get permission from user if it is admin;
+
+        UserEntity isAdmin = userRepository.findByUsernameForServices(CurrentUserUtil.getCurrentUser());
+
+        UserEntity willSubscriber = userRepository.findByUsernameForServices(receiveDTO.getUsername());
+
+        if (willSubscriber == null) {
+            throw new BadRequestException("Subscriber not found");
         }
 
-        groupUserRepository.setAsAdmin(Permission.ADMIN, group.get().getId(), subscriber.get().getId());
+        GroupEntity group = groupRepository.findById(receiveDTO.getGroupId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Group not found");
+        });
 
-        return "Updated";
+        GroupUserEntity groupUser
+                = groupUserRepository.findByGroupIdAndParticipantsId(receiveDTO.getGroupId(), isAdmin.getId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("User not found");
+        });
+
+        GroupUserEntity groupUser1
+                = groupUserRepository.findByGroupIdAndParticipantsId(receiveDTO.getGroupId(), willSubscriber.getId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("User not found");
+        });
+
+        if (groupUser.getPermission() != Permission.ADMIN) {
+            throw new NotPermissionException("Not allowed");
+        }
+
+        groupUserRepository.setPermission(Permission.USER, receiveDTO.getGroupId(), willSubscriber.getId());
+
+        return "success";
     }
 }

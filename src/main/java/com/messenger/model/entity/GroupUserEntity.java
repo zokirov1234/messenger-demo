@@ -24,6 +24,6 @@ public class GroupUserEntity {
     @Enumerated(EnumType.STRING)
     private Permission permission;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private GroupEntity group;
 }

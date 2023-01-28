@@ -1,5 +1,5 @@
 POST http://localhost:8080/channel/create
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODM1NTAyLCJleHAiOjE2NzQ4MzkxMDJ9.MoGT5kugVQDpq99Njx4UainBd9cTj5SNkECR2sKSx7mIVH0RkOVATvMXDF7N9ps-Rti9lWntxbzAa1m-f7N5-w
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODg0NDMyLCJleHAiOjE2NzQ4ODgwMzJ9.9YekNCR-aqvM-ESQCLOsXO3w8x95ADnZZzJEl81js_MDXBa2o34tDyMkE3Rl1NGeluPO1kaGzTntd1WeEpvdXA
 Content-Type: application/json
 
 {
@@ -12,18 +12,18 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/channel/broadcast
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0ODM1NjE1LCJleHAiOjE2NzQ4MzkyMTV9.sTfSpoAt1shSv3YUqUUW-6TxBZQRuZkBBxCKrdV9f6LhCI3b-UsY_yY44Ahb9NWTs5eQ4oeBcaayqS1hqntGPQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODgyNzUxLCJleHAiOjE2NzQ4ODYzNTF9.VaWla49HzlxHWCrB6C4ggi8uW_BGjXbH4dCCQusye61FoUb5CDI7GaLu_1C5qysqDZeqxvEkyc9u2SVlsrFmug
 Content-Type: application/json
 
 {
   "channelId" : 1,
-  "message" : "Hello Iam new admin"
+  "message" : "Hello Iam owner"
 }
 
 ###
 
 POST http://localhost:8080/channel/add/user
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0ODM1NjE1LCJleHAiOjE2NzQ4MzkyMTV9.sTfSpoAt1shSv3YUqUUW-6TxBZQRuZkBBxCKrdV9f6LhCI3b-UsY_yY44Ahb9NWTs5eQ4oeBcaayqS1hqntGPQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODgyNzUxLCJleHAiOjE2NzQ4ODYzNTF9.VaWla49HzlxHWCrB6C4ggi8uW_BGjXbH4dCCQusye61FoUb5CDI7GaLu_1C5qysqDZeqxvEkyc9u2SVlsrFmug
 Content-Type: application/json
 
 {
@@ -41,4 +41,23 @@ Content-Type: application/json
   "channelId" : 1,
   "username" : "josh"
 }
+
+
+###
+
+POST http://localhost:8080/channel/remove/users
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODgzOTY2LCJleHAiOjE2NzQ4ODc1NjZ9.Gw1xPBxJp_zwdLEQEFZfyYdA30LJGKX4BgVuXY0_3ESLNFzCKf3b9a7i-tqKI474GULHvVFQzs-p5pvjgf6kCg
+Content-Type: application/json
+
+{
+  "channelId" : 1,
+  "usernames" : ["josh"]
+}
+
+###
+
+DELETE http://localhost:8080/channel/delete/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODgzOTY2LCJleHAiOjE2NzQ4ODc1NjZ9.Gw1xPBxJp_zwdLEQEFZfyYdA30LJGKX4BgVuXY0_3ESLNFzCKf3b9a7i-tqKI474GULHvVFQzs-p5pvjgf6kCg
+Content-Type: application/json
+
 

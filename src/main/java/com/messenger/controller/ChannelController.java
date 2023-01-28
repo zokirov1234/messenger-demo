@@ -5,10 +5,7 @@ import com.messenger.service.ChannelService;
 import com.messenger.service.ChannelUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -61,5 +58,48 @@ public class ChannelController {
 
         return ResponseEntity.ok().body(channelGivePermissionResponseDTO);
     }
+
+    @PostMapping("/get/permission")
+    public ResponseEntity<?> getPermission(
+            @RequestBody @Valid ChannelGetPermissionReceiveDTO channelGetPermissionReceiveDTO
+    ) {
+
+        String response
+                = channelUserService.getPermission(channelGetPermissionReceiveDTO);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/remove/users")
+    public ResponseEntity<?> removeUsers(
+            @RequestBody @Valid ChannelRemoveUsersDTO channelRemoveUsersDTO
+    ) {
+
+        String response = channelUserService.removeUsers(channelRemoveUsersDTO);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete/{channelId}")
+    public ResponseEntity<?> deleteChannel(
+            @PathVariable("channelId") int channelId
+    ) {
+
+        String response = channelService.deleteChannel(channelId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete/{channelId}/message/{messageId}")
+    public ResponseEntity<?> deleteMessage(
+            @PathVariable("channelId") int channelId,
+            @PathVariable("messageId") int messageId
+    ) {
+
+        String response = channelService.deleteMessage(channelId, messageId);
+
+        return ResponseEntity.ok(response);
+    }
+
 
 }

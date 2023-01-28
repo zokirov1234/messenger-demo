@@ -4,10 +4,12 @@ import com.messenger.model.dto.message.MessageEditDTO;
 import com.messenger.model.dto.message.MessageListDTO;
 import com.messenger.model.dto.message.MessageSendDTO;
 import com.messenger.service.MessageService;
+import com.messenger.service.MessageUploadService;
 import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,8 @@ import javax.validation.Valid;
 public class MessageController {
 
     private final MessageService messageService;
+
+    private final MessageUploadService messageUploadService;
 
     @GetMapping("/{chatId}")
     public ResponseEntity<MessageListDTO> getAllMessages(
@@ -42,6 +46,19 @@ public class MessageController {
         String response = messageService.updateMessage(messageEditDTO, CurrentUserUtil.getCurrentUser());
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/upload/{chatId}")
+    public ResponseEntity<?> uploadMessage(
+            @PathVariable("chatId") int chatId,
+            @RequestParam("file") MultipartFile multipartFile
+    ) {
+
+        String response =
+                messageUploadService.uploadMessage(multipartFile, chatId);
+
+        return ResponseEntity.ok().body(response);
+
     }
 
 }

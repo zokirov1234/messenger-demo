@@ -1,9 +1,6 @@
 package com.messenger.controller;
 
-import com.messenger.model.dto.group.GroupAddReceiveDTO;
-import com.messenger.model.dto.group.GroupAddUserDTO;
-import com.messenger.model.dto.group.GroupGivePermission;
-import com.messenger.model.dto.group.GroupRemoveUserDTO;
+import com.messenger.model.dto.group.*;
 import com.messenger.service.GroupService;
 import com.messenger.service.GroupUserService;
 import com.messenger.util.CurrentUserUtil;
@@ -73,4 +70,33 @@ public class GroupController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/get/permission")
+    public ResponseEntity<?> getPermission(
+            @RequestBody @Valid GroupGetPermissionReceiveDTO groupGetPermissionReceiveDTO
+    ) {
+
+        String responseDTO
+                = groupUserService.getPermission(groupGetPermissionReceiveDTO);
+
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @DeleteMapping("/delete/{groupId}")
+    public ResponseEntity<?> deleteGroup(
+            @PathVariable("groupId") int groupId
+    ) {
+
+        String response = groupService.deleteGroup(groupId);
+
+        return ResponseEntity.ok(response);
+    }
+    @DeleteMapping("/delete/message/{messageId}")
+    public ResponseEntity<?> deleteMessage(
+            @PathVariable("messageId") int messageId
+    ) {
+
+        String response = groupService.deleteMessage(messageId);
+
+        return ResponseEntity.ok(response);
+    }
 }

@@ -10,4 +10,6 @@ public interface MessageRepository extends JpaRepository<MessageEntity, Integer>
 
     @Query("select m from MessageEntity m where m.chat.id = ?1 order by m.createdAt asc")
     List<MessageEntity> getAllByChatId(int id);
+
+    void deleteByChatId(int chatId);
 }

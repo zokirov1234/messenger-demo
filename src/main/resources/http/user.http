@@ -2,8 +2,20 @@ POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
+  "name" : "josh",
+  "phoneNumber" : "345673256",
+  "username" : "josh",
+  "password" : "123"
+}
+
+###
+
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
   "name" : "test",
-  "phoneNumber" : "356789954",
+  "phoneNumber" : "367282992",
   "username" : "test",
   "password" : "123"
 }

@@ -1,21 +1,20 @@
-package com.messenger.model.dto.group;
+package com.messenger.model.dto.channel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
-public class GroupAddUserDTO {
-
+public class ChannelGetPermissionReceiveDTO {
+    @NotBlank
+    private String username;
     @NotEmpty
-    private List<String> usernames;
-    private Integer chatId;
-    private Integer groupId;
+    private int channelId;
 }

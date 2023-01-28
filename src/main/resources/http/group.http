@@ -1,5 +1,5 @@
 POST http://localhost:8080/group/create
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODM3NDk1LCJleHAiOjE2NzQ4NDEwOTV9.Jx5KJtfga6EbHdNsk8vVcjAcmn8iaKxFqK6BAjkIrHMjwvdqI66liNrJelT-LOB5PsFugFE0U9_mkjCgNzQvNA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0OTIyMDMxLCJleHAiOjE2NzQ5MjU2MzF9.dKqTtjU1Zw6mKRj89AQGhWwEbWBtZuShvk6AzBA-_KB6tySPkXwaT0Jvw_gGa2PwkgHwY17fpZRXnhoAFNraZQ
 Content-Type: application/json
 
 {
@@ -11,13 +11,13 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/group/add/user
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NDc0MTIzNSwiZXhwIjoxNjc0NzQ0ODM1fQ.gtSOV7jWbl8U6mRrrehgIQgv90dB1_Bg0HUR86E7NzQZeHRySooQCZ9kOWBlp6YyUh6L6g1hqEITiBjVlrKD7w
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODg0NDMyLCJleHAiOjE2NzQ4ODgwMzJ9.9YekNCR-aqvM-ESQCLOsXO3w8x95ADnZZzJEl81js_MDXBa2o34tDyMkE3Rl1NGeluPO1kaGzTntd1WeEpvdXA
 Content-Type: application/json
 
 {
   "usernames" : ["josh"],
-  "chatId" : 2,
-  "groupId" : 2
+  "chatId" : 1,
+  "groupId" : 1
 }
 
 
@@ -48,3 +48,8 @@ Content-Type: application/json
   "groupId" : 2,
   "username" : "josh"
 }
+###
+
+DELETE http://localhost:8080/group/delete/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODgyNzUxLCJleHAiOjE2NzQ4ODYzNTF9.VaWla49HzlxHWCrB6C4ggi8uW_BGjXbH4dCCQusye61FoUb5CDI7GaLu_1C5qysqDZeqxvEkyc9u2SVlsrFmug
+Content-Type: application/json

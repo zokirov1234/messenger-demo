@@ -1,6 +1,7 @@
 package com.messenger.service;
 
 import com.messenger.exp.BadRequestException;
+import com.messenger.exp.ItemNotFoundException;
 import com.messenger.model.dto.message.MessageEditDTO;
 import com.messenger.model.dto.message.MessageListDTO;
 import com.messenger.model.dto.message.MessageSendDTO;
@@ -8,6 +9,7 @@ import com.messenger.model.entity.ChatEntity;
 import com.messenger.model.entity.ChatUserEntity;
 import com.messenger.model.entity.MessageEntity;
 import com.messenger.model.entity.UserEntity;
+import com.messenger.model.enums.MessageTypes;
 import com.messenger.repository.ChatRepository;
 import com.messenger.repository.ChatUserRepository;
 import com.messenger.repository.MessageRepository;
@@ -21,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class MessageService {
 
     private final MessageRepository messageRepository;
@@ -47,7 +50,7 @@ public class MessageService {
         return messageListDTOS;
     }
 
-    @Transactional
+
     public String sendMessage(MessageSendDTO messageSendDTO, String username) {
 
         UserEntity owner = userRepository.findByUsernameForServices(username);
@@ -56,7 +59,7 @@ public class MessageService {
         Optional<ChatEntity> chat = chatRepository.findById(messageSendDTO.getChatId());
 
         if ((friend.isEmpty() || friend.get().isDeleted()) && chat.isEmpty()) {
-            throw new BadRequestException("User not found");
+            throw new ItemNotFoundException("User not found");
         }
 
 
@@ -84,37 +87,36 @@ public class MessageService {
                 MessageEntity.builder()
                         .senderId(owner.getId())
                         .message(messageSendDTO.getMessage())
+                        .type(MessageTypes.TEXT)
                         .chat(chatEntity)
                         .build()
         );
 
-        return "Sent";
+        return "success";
     }
 
-    @Transactional
+
     public String updateMessage(MessageEditDTO messageEditDTO, String currentPrincipalName) {
 
         UserEntity owner = userRepository.findByUsernameForServices(currentPrincipalName);
 
-        Optional<MessageEntity> message = messageRepository.findById(messageEditDTO.getMessageId());
-
-        if (message.isEmpty()) {
-            throw new BadRequestException("Message not found");
-        }
+        MessageEntity message = messageRepository.findById(messageEditDTO.getMessageId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Message not found");
+        });
 
         if (messageEditDTO.getMessage().isEmpty()) {
-            return "Updated";
+            return "success";
         }
 
         messageRepository.save(
                 MessageEntity.builder()
-                        .id(message.get().getId())
-                        .chat(message.get().getChat())
+                        .id(message.getId())
+                        .chat(message.getChat())
                         .senderId(owner.getId())
                         .message(messageEditDTO.getMessage())
                         .build()
         );
 
-        return "Updated";
+        return "success";
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 public interface GroupUserRepository extends JpaRepository<GroupUserEntity, Integer> {
@@ -18,5 +19,8 @@ public interface GroupUserRepository extends JpaRepository<GroupUserEntity, Inte
 
     @Modifying
     @Query("update GroupUserEntity g set g.permission=?1 where g.group.id=?2 and g.participants.id =?3")
-    void setAsAdmin(Permission permission, int groupId, int userId);
+    void setPermission(Permission permission, int groupId, int userId);
+    @Transactional
+    @Modifying
+    void deleteByGroupId(int groupId);
 }

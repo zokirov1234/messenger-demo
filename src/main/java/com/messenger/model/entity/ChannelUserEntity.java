@@ -25,6 +25,6 @@ public class ChannelUserEntity {
     @JoinColumn
     private UserEntity subscribers;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private ChannelEntity channel;
 }

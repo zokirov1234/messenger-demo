@@ -82,7 +82,7 @@ public class UserService {
                         .build()
         );
 
-        return "Successfully edited";
+        return "success";
     }
 
     @Transactional
@@ -90,6 +90,7 @@ public class UserService {
 
         userRepository.setDeleted(username);
 
-        return "Deleted successfully";
+        return "success";
     }
+
 }

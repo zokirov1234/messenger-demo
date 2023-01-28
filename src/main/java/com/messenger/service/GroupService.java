@@ -1,11 +1,15 @@
 package com.messenger.service;
 
 import com.messenger.exp.BadRequestException;
+import com.messenger.exp.ItemNotFoundException;
+import com.messenger.exp.NotPermissionException;
 import com.messenger.model.dto.group.GroupAddReceiveDTO;
 import com.messenger.model.dto.group.GroupAddUserDTO;
 import com.messenger.model.entity.*;
 import com.messenger.model.enums.Permission;
+import com.messenger.model.enums.Types;
 import com.messenger.repository.*;
+import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class GroupService {
 
     private final GroupRepository groupRepository;
@@ -26,17 +31,20 @@ public class GroupService {
 
     private final UserRepository userRepository;
 
+    private final ChatTypeService chatTypeService;
+
+    private final MessageRepository messageRepository;
+
     //todo: create group and add at least one user
     //todo: adding group friends
     //todo: user left group
 
 
-    @Transactional
     public String createGroup(GroupAddReceiveDTO groupAddReceiveDTO, String ownerUsername) {
         UserEntity owner = userRepository.findByUsernameForServices(ownerUsername);
 
         if (groupAddReceiveDTO.getUsernames().isEmpty()) {
-            throw new BadRequestException("Users not found");
+            throw new ItemNotFoundException("Users not found");
         }
         ChatEntity chat = new ChatEntity();
 
@@ -46,6 +54,7 @@ public class GroupService {
                         .numberOfUsers(groupAddReceiveDTO.getUsernames().size())
                         .name(groupAddReceiveDTO.getName())
                         .description(groupAddReceiveDTO.getDescription())
+                        .chatTypes(chatTypeService.createType("a", Types.PRIVATE.name()))
                         .build()
         );
 
@@ -87,34 +96,31 @@ public class GroupService {
         return "Created successfully";
     }
 
-    @Transactional
+
     public String addToGroup(GroupAddUserDTO groupAddUserDTO) {
 
-        Optional<GroupEntity> group = groupRepository.findById(groupAddUserDTO.getGroupId());
+        GroupEntity group = groupRepository.findById(groupAddUserDTO.getGroupId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Group not found");
+        });
 
-        if (group.isEmpty()) {
-            throw new BadRequestException("Group not found");
-        }
 
-        Optional<ChatEntity> chat = chatRepository.findById(groupAddUserDTO.getChatId());
+        ChatEntity chat = chatRepository.findById(groupAddUserDTO.getChatId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Chat not found");
+        });
 
-        if (chat.isEmpty()) {
-            throw new BadRequestException("Chat not found");
-        }
-
-        if (group.get().getChat().getId() != chat.get().getId()) {
-            throw new BadRequestException("Group not found");
+        if (group.getChat().getId() != chat.getId()) {
+            throw new ItemNotFoundException("Group not found");
         }
 
 
         for (String friends : groupAddUserDTO.getUsernames()) {
-            Optional<UserEntity> friend = userRepository.findByUsername(friends);
+            UserEntity friend = userRepository.findByUsernameForServices(friends);
 
-            if (friend.isEmpty() || friend.get().isDeleted()) {
-                throw new BadRequestException("User not found");
+            if (friend == null) {
+                throw new ItemNotFoundException("User not found");
             }
 
-            Optional<GroupUserEntity> check = groupUserRepository.findByGroupIdAndParticipantsId(group.get().getId(), friend.get().getId());
+            Optional<GroupUserEntity> check = groupUserRepository.findByGroupIdAndParticipantsId(group.getId(), friend.getId());
 
             if (check.isPresent()) {
                 continue;
@@ -122,46 +128,91 @@ public class GroupService {
 
             chatUserRepository.save(
                     ChatUserEntity.builder()
-                            .chat(chat.get())
-                            .user(friend.get())
+                            .chat(chat)
+                            .user(friend)
                             .build()
             );
 
             groupUserRepository.save(
                     GroupUserEntity.builder()
-                            .participants(friend.get())
+                            .participants(friend)
                             .permission(Permission.USER)
-                            .group(group.get())
+                            .group(group)
                             .build()
             );
         }
-        int numberOfSubscribers = group.get().getNumberOfUsers() + groupAddUserDTO.getUsernames().size();
-        groupRepository.setNumberOfUsers(numberOfSubscribers, group.get().getId());
+        int numberOfSubscribers = group.getNumberOfUsers() + groupAddUserDTO.getUsernames().size();
+        groupRepository.setNumberOfUsers(numberOfSubscribers, group.getId());
 
         return "Added successfully";
     }
 
-    @Transactional
+
     public String leaveGroup(int chatId, String username) {
 
         UserEntity user = userRepository.findByUsernameForServices(username);
 
-        Optional<ChatEntity> chat = chatRepository.findById(chatId);
+        ChatEntity chat = chatRepository.findById(chatId).orElseThrow(() -> {
+            throw new ItemNotFoundException("Chat not found");
+        });
 
-        if (chat.isEmpty()) {
-            throw new BadRequestException("Chat not found");
+        GroupEntity group = groupRepository.findByChatId(chatId).orElseThrow(() -> {
+            throw new ItemNotFoundException("Group not found");
+        });
+
+        int numberOfSubscribers = group.getNumberOfUsers() - 1;
+        groupRepository.setNumberOfUsers(numberOfSubscribers, group.getId());
+        chatUserRepository.deleteByUserIdAndChatId(user.getId(), chat.getId());
+        groupUserRepository.deleteByGroupIdAndUserId(group.getId(), user.getId());
+
+        return "success";
+    }
+
+    public String deleteGroup(int groupId) {
+
+
+        UserEntity owner = userRepository.findByUsernameForServices(CurrentUserUtil.getCurrentUser());
+
+        if (owner == null) {
+            throw new ItemNotFoundException("User not found");
         }
 
-        Optional<GroupEntity> group = groupRepository.findByChatId(chatId);
+        GroupEntity group = groupRepository.findById(groupId).orElseThrow(() -> {
+            throw new ItemNotFoundException("Group not found");
+        });
 
-        if (group.isEmpty()) {
-            throw new BadRequestException("Group not found");
+        GroupUserEntity admin = groupUserRepository.findByGroupIdAndParticipantsId(groupId, owner.getId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("User not found");
+        });
+
+        if (admin.getPermission() != Permission.ADMIN) {
+            throw new NotPermissionException("Not allowed");
         }
-        int numberOfSubscribers = group.get().getNumberOfUsers() - 1;
-        groupRepository.setNumberOfUsers(numberOfSubscribers, group.get().getId());
-        chatUserRepository.deleteByUserIdAndChatId(user.getId(), chat.get().getId());
-        groupUserRepository.deleteByGroupIdAndUserId(group.get().getId(), user.getId());
 
-        return "Left";
+        groupUserRepository.deleteByGroupId(groupId);
+        chatUserRepository.deleteByChatId(group.getChat().getId());
+        chatRepository.deleteById(group.getChat().getId());
+        messageRepository.deleteByChatId(group.getChat().getId());
+        groupRepository.deleteById(groupId);
+
+        return "success";
+    }
+
+    public String deleteMessage(int messageId) {
+
+        UserEntity user
+                = userRepository.findByUsernameForServices(CurrentUserUtil.getCurrentUser());
+
+        MessageEntity message = messageRepository.findById(messageId).orElseThrow(() -> {
+            throw new ItemNotFoundException("Message not found");
+        });
+
+        if (message.getSenderId() != user.getId()) {
+            throw new NotPermissionException("Not allowed");
+        }
+
+        messageRepository.deleteById(messageId);
+
+        return "success";
     }
 }

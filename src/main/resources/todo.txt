@@ -14,13 +14,9 @@
 
 7. Create channel and broadcast only owner and add user and give permission and set validation for checking (+);
 
-//get permission from channel and group
+8. Delete group and channel or remove users from channel and delete messages (+);
 
-8. Delete group and channel or remove users from channel and delete messages;
-
-//add users to chat_users not group_users or channel_users;
-
-9. Send files (photo, video, document);
+9. Send files (photo, video, document) (+);
 
 10. Set photo on (profile, group, channel);
 

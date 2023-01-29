@@ -1,8 +1,6 @@
 package com.messenger.controller;
 
-import com.messenger.model.dto.message.MessageEditDTO;
-import com.messenger.model.dto.message.MessageListDTO;
-import com.messenger.model.dto.message.MessageSendDTO;
+import com.messenger.model.dto.message.*;
 import com.messenger.service.MessageService;
 import com.messenger.service.MessageUploadService;
 import com.messenger.util.CurrentUserUtil;
@@ -12,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/message")
@@ -59,6 +59,39 @@ public class MessageController {
 
         return ResponseEntity.ok().body(response);
 
+    }
+
+    @PostMapping("/pin")
+    public ResponseEntity<?> pinMessage(
+            @RequestBody MessagePinDTO messagePinDTO
+    ) {
+
+        String response
+                = messageService.pinMessage(messagePinDTO);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<MessageSearchResponseDTO>> searchMessageWithoutDate(
+            @RequestBody MessageSearchWithoutDate messageSearchWithoutDate
+    ) {
+
+        List<MessageSearchResponseDTO> response
+                = messageService.searchWithoutDate(messageSearchWithoutDate);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/search/date")
+    public ResponseEntity<List<MessageSearchResponseDTO>> searchMessageWithDate(
+            @RequestBody MessageSearchWithDate messageSearchWithDate
+    ) throws ParseException {
+
+        List<MessageSearchResponseDTO> response
+                = messageService.searchWithDate(messageSearchWithDate);
+
+        return ResponseEntity.ok().body(response);
     }
 
 }

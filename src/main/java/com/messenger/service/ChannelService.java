@@ -6,6 +6,7 @@ import com.messenger.exp.NotPermissionException;
 import com.messenger.model.dto.channel.*;
 import com.messenger.model.entity.*;
 import com.messenger.model.enums.Permission;
+import com.messenger.model.enums.PinType;
 import com.messenger.repository.*;
 import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
@@ -98,6 +99,7 @@ public class ChannelService {
                 MessageEntity.builder()
                         .senderId(admin.getId())
                         .message(channelBroadCastReceiveDTO.getMessage())
+                        .pinType(PinType.UNPINNED)
                         .chat(channel.getChat())
                         .build()
         );

@@ -3,6 +3,7 @@ package com.messenger.controller;
 import com.messenger.model.dto.user.UserFindReceive;
 import com.messenger.model.dto.user.UserResponseDTO;
 import com.messenger.model.dto.user.UserUpdateProfile;
+import com.messenger.service.ProfilePhotoService;
 import com.messenger.service.UserService;
 import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,8 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    private final ProfilePhotoService profilePhotoService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<UserResponseDTO>> findAllUsers() {
@@ -50,6 +53,16 @@ public class UserController {
         String response = userService.deleteProfile(CurrentUserUtil.getCurrentUser());
 
         return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/set/photo")
+    public ResponseEntity<?> setPhotoOnProfile(
+            @RequestParam("file") MultipartFile file
+    ) {
+        String response
+                = profilePhotoService.setPhotoOnUser(file);
+
+        return ResponseEntity.ok(response);
     }
 
 }

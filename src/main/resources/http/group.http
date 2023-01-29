@@ -1,5 +1,18 @@
+POST http://localhost:8080/group/set/photo
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDA2ODYwLCJleHAiOjE2NzUwMTA0NjB9.zNufoXCaSEV2QkthoqI178uNpXBPUAc8S_EHxKapcUSk2E89kx1oxw2z1uFoubO5khRhItHL6YLGWct70bkI6w
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="shopping.jpg"
+Content-Disposition: form-data; name="groupId";
+
+< /home/cosmos/WebstormProjects/app1/src/assets/shopping.jpg
+groupId-1
+--WebAppBoundary--
+
+###
 POST http://localhost:8080/group/create
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0OTIyMDMxLCJleHAiOjE2NzQ5MjU2MzF9.dKqTtjU1Zw6mKRj89AQGhWwEbWBtZuShvk6AzBA-_KB6tySPkXwaT0Jvw_gGa2PwkgHwY17fpZRXnhoAFNraZQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDA2ODYwLCJleHAiOjE2NzUwMTA0NjB9.zNufoXCaSEV2QkthoqI178uNpXBPUAc8S_EHxKapcUSk2E89kx1oxw2z1uFoubO5khRhItHL6YLGWct70bkI6w
 Content-Type: application/json
 
 {

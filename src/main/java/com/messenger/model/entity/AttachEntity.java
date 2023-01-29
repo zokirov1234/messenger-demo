@@ -1,11 +1,9 @@
 package com.messenger.model.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,6 +16,7 @@ import java.time.LocalDateTime;
 public class AttachEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -28,6 +27,7 @@ public class AttachEntity {
     private Long size;
     @Column
     private String path;
+    @CreationTimestamp
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
 }

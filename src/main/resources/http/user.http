@@ -1,3 +1,15 @@
+POST http://localhost:8080/user/set/photo
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0OTk5MjUyLCJleHAiOjE2NzUwMDI4NTJ9.3Zodk2D415hnagGWqMo0oR80ltDbrrQhbatPf3ndxJRCmDMTpo3R5kjx2pY25mW-PZAGmc2Z7j26_1HsrbgP9A
+
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="img.png"
+
+< /home/cosmos/WebstormProjects/app1/src/assets/img.png
+--WebAppBoundary--
+
+###
 POST http://localhost:8080/auth/register
 Content-Type: application/json
 

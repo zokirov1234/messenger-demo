@@ -1,6 +1,7 @@
 package com.messenger.model.entity;
 
 import com.messenger.model.enums.MessageTypes;
+import com.messenger.model.enums.PinType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,6 +28,9 @@ public class MessageEntity {
 
     @Enumerated(EnumType.STRING)
     private MessageTypes type;
+
+    @Enumerated(EnumType.STRING)
+    private PinType pinType;
 
     @ManyToOne
     @JoinColumn(name = "chat_id")

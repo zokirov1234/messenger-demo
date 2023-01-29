@@ -3,10 +3,12 @@ package com.messenger.controller;
 import com.messenger.model.dto.group.*;
 import com.messenger.service.GroupService;
 import com.messenger.service.GroupUserService;
+import com.messenger.service.ProfilePhotoService;
 import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,8 @@ import javax.validation.Valid;
 public class GroupController {
 
     private final GroupService groupService;
+
+    private final ProfilePhotoService profilePhotoService;
 
     private final GroupUserService groupUserService;
 
@@ -96,6 +100,17 @@ public class GroupController {
     ) {
 
         String response = groupService.deleteMessage(messageId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/set/photo/{groupId}")
+    public ResponseEntity<?> setPhotoOnGroupProfile(
+            @PathVariable("groupId") int groupId,
+            @RequestParam("file") MultipartFile multipartFile
+            ) {
+        String response
+                = profilePhotoService.setPhotoOnGroupProfile(multipartFile, groupId);
 
         return ResponseEntity.ok(response);
     }

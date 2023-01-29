@@ -3,9 +3,11 @@ package com.messenger.controller;
 import com.messenger.model.dto.channel.*;
 import com.messenger.service.ChannelService;
 import com.messenger.service.ChannelUserService;
+import com.messenger.service.ProfilePhotoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -15,6 +17,8 @@ import javax.validation.Valid;
 public class ChannelController {
 
     private final ChannelService channelService;
+
+    private final ProfilePhotoService profilePhotoService;
 
     private final ChannelUserService channelUserService;
 
@@ -97,6 +101,17 @@ public class ChannelController {
     ) {
 
         String response = channelService.deleteMessage(channelId, messageId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/set/photo{channelId}")
+    public ResponseEntity<?> setPhotoOnChannelProfile(
+            @PathVariable("channelId") Integer channelId,
+            @RequestParam("file")MultipartFile file
+            ) {
+        String response
+                = profilePhotoService.setPhotoOnChannelProfile(file,channelId);
 
         return ResponseEntity.ok(response);
     }

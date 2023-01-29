@@ -15,11 +15,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NzQ5M
 ###
 
 POST http://localhost:8080/message/send
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0OTIyMDMxLCJleHAiOjE2NzQ5MjU2MzF9.dKqTtjU1Zw6mKRj89AQGhWwEbWBtZuShvk6AzBA-_KB6tySPkXwaT0Jvw_gGa2PwkgHwY17fpZRXnhoAFNraZQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE2NzkyLCJleHAiOjE2NzUwMjAzOTJ9.2mypH0dmmydVETPusnngZoXaRf_gWHRQH8J8X8pazrNd_kHmmf6VyJOhrSpPaJ3ACEcHTLCnMQ0Z6K4go2AQXQ
 Content-Type: application/json
 
 {
-  "chatId" : 3,
+  "chatId" : 0,
   "message" : "Hello programming is easy.",
   "friendId" : 1
 }
@@ -35,4 +35,27 @@ Content-Type: application/json
   "messageId" : 2
 }
 
+###
 
+//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE2MDAwLCJleHAiOjE2NzUwMTk2MDB9.sH-S-1B0ZyDMVrHw3aIYRhgsQqtAsQdlGUzvd0qnTq4WMhqt4ImJXERjB5wx_y78O8Wol8tsGKAi0n4WJsP4qQ
+
+###
+POST http://localhost:8080/message/search
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE2NzkyLCJleHAiOjE2NzUwMjAzOTJ9.2mypH0dmmydVETPusnngZoXaRf_gWHRQH8J8X8pazrNd_kHmmf6VyJOhrSpPaJ3ACEcHTLCnMQ0Z6K4go2AQXQ
+Content-Type: application/json
+
+{
+  "message" : "He",
+  "chatId" : 2
+}
+
+###
+POST http://localhost:8080/message/search/date
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE3MjM2LCJleHAiOjE2NzUwMjA4MzZ9.n3t8ZILiTPF-TJG3ySrNfk0Gmh5iXfuGHMYQDEVlO0XNQW_tHYlOa9KaXPBoPOoZClK5n94RTlrD4e8ltq3TSw
+Content-Type: application/json
+
+{
+  "message" : "He",
+  "chatId" : 2,
+  "date" : "2023-01-29"
+}

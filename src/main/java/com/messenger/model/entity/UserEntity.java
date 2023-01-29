@@ -37,9 +37,6 @@ public class UserEntity {
 
     private boolean isDeleted;
 
-    @Column(name = "photo_id")
-    private String photo;
-
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<RoleEntity> userRoles = new HashSet<>();
 

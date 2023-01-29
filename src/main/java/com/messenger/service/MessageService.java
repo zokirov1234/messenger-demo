@@ -1,15 +1,13 @@
 package com.messenger.service;
 
-import com.messenger.exp.BadRequestException;
 import com.messenger.exp.ItemNotFoundException;
-import com.messenger.model.dto.message.MessageEditDTO;
-import com.messenger.model.dto.message.MessageListDTO;
-import com.messenger.model.dto.message.MessageSendDTO;
+import com.messenger.model.dto.message.*;
 import com.messenger.model.entity.ChatEntity;
 import com.messenger.model.entity.ChatUserEntity;
 import com.messenger.model.entity.MessageEntity;
 import com.messenger.model.entity.UserEntity;
 import com.messenger.model.enums.MessageTypes;
+import com.messenger.model.enums.PinType;
 import com.messenger.repository.ChatRepository;
 import com.messenger.repository.ChatUserRepository;
 import com.messenger.repository.MessageRepository;
@@ -18,6 +16,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,32 +67,32 @@ public class MessageService {
         }
 
 
-        ChatEntity chatEntity;
+        ChatEntity save = chatRepository.save(new ChatEntity());
         if (chat.isEmpty()) {
-            ChatUserEntity chatUser = chatUserRepository.save(
+            chatUserRepository.save(
                     ChatUserEntity.builder()
-                            .chat(new ChatEntity())
+                            .chat(save)
                             .user(owner)
                             .build()
             );
 
             chatUserRepository.save(
                     ChatUserEntity.builder()
-                            .chat(chatUser.getChat())
+                            .chat(save)
                             .user(friend.get())
                             .build()
             );
-            chatEntity = chatUser.getChat();
         } else {
-            chatEntity = chat.get();
+            save = chat.get();
         }
 
         messageRepository.save(
                 MessageEntity.builder()
                         .senderId(owner.getId())
                         .message(messageSendDTO.getMessage())
+                        .pinType(PinType.UNPINNED)
                         .type(MessageTypes.TEXT)
-                        .chat(chatEntity)
+                        .chat(save)
                         .build()
         );
 
@@ -118,5 +122,54 @@ public class MessageService {
         );
 
         return "success";
+    }
+
+    public String pinMessage(MessagePinDTO pinDTO) {
+
+        messageRepository.findById(pinDTO.getMessageId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Message not found");
+        });
+
+        chatRepository.findById(pinDTO.getChatId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Chat not found");
+        });
+
+        messageRepository.setAsPinned(PinType.PINNED, pinDTO.getMessageId(), pinDTO.getChatId());
+
+        return "success";
+    }
+
+    public List<MessageSearchResponseDTO> searchWithoutDate(MessageSearchWithoutDate dto) {
+
+        List<MessageSearchResponseDTO> dtoList = new ArrayList<>();
+        messageRepository.findByMessageAndChatIdWithoutDate(dto.getMessage(), dto.getChatId())
+                .forEach(messageEntity -> dtoList.add(
+                        MessageSearchResponseDTO.builder()
+                                .createdAt(messageEntity.getCreatedAt())
+                                .message(messageEntity.getMessage())
+                                .build()
+                ));
+
+        return dtoList;
+    }
+
+    public List<MessageSearchResponseDTO> searchWithDate(MessageSearchWithDate dto) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = formatter.parse(dto.getDate());
+
+        Timestamp timestamp = new Timestamp(date.getTime());
+
+        List<MessageSearchResponseDTO> dtoList = new ArrayList<>();
+        messageRepository.findByMessageAndChatIdWithDate(dto.getMessage(), dto.getChatId(), timestamp)
+                .forEach(messageEntity -> dtoList.add(
+                        MessageSearchResponseDTO.builder()
+                                .createdAt(messageEntity.getCreatedAt())
+                                .message(messageEntity.getMessage())
+                                .build()
+                ));
+
+        return dtoList;
     }
 }

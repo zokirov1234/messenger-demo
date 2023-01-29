@@ -18,9 +18,9 @@
 
 9. Send files (photo, video, document) (+);
 
-10. Set photo on (profile, group, channel);
+10. Set photo on (profile, group, channel) (+);
 
-11. Pin the messages and add messages type read or unread and search messages with date or without date in chats(group,channels ..);
+11. Pin the messages and search messages with date or without date in chats(group,channels ..) (+);
 
 12. Divide the groups and channels into private and public types;
 
@@ -28,4 +28,4 @@
 
 14. Review and optimize code and test manually;
 
-15. Add unit testing and mockito;
+15. Add unit testing and mockito, swagger and logs;

@@ -39,8 +39,4 @@ public class MessageEntity {
     @CreationTimestamp
     @Column(name = "sent_at")
     private Timestamp createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "edited_at")
-    private Timestamp modifiedAt;
 }

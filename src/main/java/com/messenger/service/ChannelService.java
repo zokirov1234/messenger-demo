@@ -91,7 +91,7 @@ public class ChannelService {
             throw new ItemNotFoundException("User not found");
         }
 
-        if (channelUser.getPermission() == Permission.USER) {
+        if (channelUser.getPermission() != Permission.ADMIN) {
             throw new NotPermissionException("Not allowed");
         }
 

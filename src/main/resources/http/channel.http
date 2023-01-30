@@ -1,5 +1,5 @@
 POST http://localhost:8080/channel/create
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODg0NDMyLCJleHAiOjE2NzQ4ODgwMzJ9.9YekNCR-aqvM-ESQCLOsXO3w8x95ADnZZzJEl81js_MDXBa2o34tDyMkE3Rl1NGeluPO1kaGzTntd1WeEpvdXA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAwMjI2LCJleHAiOjE2NzUxMDM4MjZ9.oEB0Hdmex1DzdROXOObsgWh3CS89lKZrivDKMb5gMWdgEe7tWRVqm87J_H5TeZMHlNwCJEk1fcFT3NYXP-KaYw
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/channel/broadcast
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0ODgyNzUxLCJleHAiOjE2NzQ4ODYzNTF9.VaWla49HzlxHWCrB6C4ggi8uW_BGjXbH4dCCQusye61FoUb5CDI7GaLu_1C5qysqDZeqxvEkyc9u2SVlsrFmug
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAwMjI2LCJleHAiOjE2NzUxMDM4MjZ9.oEB0Hdmex1DzdROXOObsgWh3CS89lKZrivDKMb5gMWdgEe7tWRVqm87J_H5TeZMHlNwCJEk1fcFT3NYXP-KaYw
 Content-Type: application/json
 
 {

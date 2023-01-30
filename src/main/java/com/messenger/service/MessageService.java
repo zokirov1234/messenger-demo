@@ -16,12 +16,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,14 +108,7 @@ public class MessageService {
             return "success";
         }
 
-        messageRepository.save(
-                MessageEntity.builder()
-                        .id(message.getId())
-                        .chat(message.getChat())
-                        .senderId(owner.getId())
-                        .message(messageEditDTO.getMessage())
-                        .build()
-        );
+        messageRepository.updateMessage(messageEditDTO.getMessage(), message.getId());
 
         return "success";
     }
@@ -155,14 +144,9 @@ public class MessageService {
 
     public List<MessageSearchResponseDTO> searchWithDate(MessageSearchWithDate dto) throws ParseException {
 
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = formatter.parse(dto.getDate());
-
-        Timestamp timestamp = new Timestamp(date.getTime());
-
         List<MessageSearchResponseDTO> dtoList = new ArrayList<>();
-        messageRepository.findByMessageAndChatIdWithDate(dto.getMessage(), dto.getChatId(), timestamp)
+
+        messageRepository.findByMessageAndChatIdWithDate(dto.getMessage(), dto.getChatId(), dto.getDate())
                 .forEach(messageEntity -> dtoList.add(
                         MessageSearchResponseDTO.builder()
                                 .createdAt(messageEntity.getCreatedAt())

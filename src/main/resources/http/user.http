@@ -50,3 +50,8 @@ Content-Type: application/json
 GET http://localhost:8080/user/delete
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIiwiaWF0IjoxNjc0NzE5NTg3LCJleHAiOjE2NzQ3MjMxODd9.CCsBfU9Ov6tkXHbn3KmJSvLC1g7abbJx-cocWB-Z03PutRdj15KAofOce0AmrMteM_e3p04ai9TPHZp0hfrrbQ
 Content-Type: application/json
+
+###
+GET http://localhost:8080/user/getAll/chats
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAxMjI4LCJleHAiOjE2NzUxMDQ4Mjh9.MLI85UXuGHad4y_1c_Ru6BVIGgRsmWSe9_iARmFLSI6UUvCHSMo6oAjZzvZHQok6HLo_T9pdgTupKYaEv1ZzWQ
+Content-Type: application/json

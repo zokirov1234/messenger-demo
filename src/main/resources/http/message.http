@@ -15,24 +15,24 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NzQ5M
 ###
 
 POST http://localhost:8080/message/send
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE2NzkyLCJleHAiOjE2NzUwMjAzOTJ9.2mypH0dmmydVETPusnngZoXaRf_gWHRQH8J8X8pazrNd_kHmmf6VyJOhrSpPaJ3ACEcHTLCnMQ0Z6K4go2AQXQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAxMjI4LCJleHAiOjE2NzUxMDQ4Mjh9.MLI85UXuGHad4y_1c_Ru6BVIGgRsmWSe9_iARmFLSI6UUvCHSMo6oAjZzvZHQok6HLo_T9pdgTupKYaEv1ZzWQ
 Content-Type: application/json
 
 {
-  "chatId" : 0,
-  "message" : "Hello programming is easy.",
+  "chatId" : 2,
+  "message" : "Done",
   "friendId" : 1
 }
 
 ###
 
 POST http://localhost:8080/message/edit
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIiwiaWF0IjoxNjc0NzE2NTIzLCJleHAiOjE2NzQ3MjAxMjN9.nSs85mN57n8y85Z3ULmdmC8tYu1FLccmF_pYSSKr3SnAWIKIzEGcXM6BeHTQe8LihOXOKTuUlQ3DTwwywIamlg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDg3MDM2LCJleHAiOjE2NzUwOTA2MzZ9.5zeBakiHtdIhfIx2q4-cZOnLFCDSziaBgEgN-lqm4RGy9H1lRR6ZWGBOdzOurGKRiMgWJ01a7ZkX95aSRYQQ3g
 Content-Type: application/json
 
 {
   "message" : "Hi",
-  "messageId" : 2
+  "messageId" : 1
 }
 
 ###
@@ -41,21 +41,21 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/message/search
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE2NzkyLCJleHAiOjE2NzUwMjAzOTJ9.2mypH0dmmydVETPusnngZoXaRf_gWHRQH8J8X8pazrNd_kHmmf6VyJOhrSpPaJ3ACEcHTLCnMQ0Z6K4go2AQXQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDg3NjYzLCJleHAiOjE2NzUwOTEyNjN9.cW15KJ2PuLznCAT4mHivg-ZSfMSqCirkhSQa0ZRJ59JDjUeilFIq-KNcgOKJoLTVp4YaTZdG0bl6s-HyIKUqww
 Content-Type: application/json
 
 {
   "message" : "He",
-  "chatId" : 2
+  "chatId" : 1
 }
 
 ###
 POST http://localhost:8080/message/search/date
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDE3MjM2LCJleHAiOjE2NzUwMjA4MzZ9.n3t8ZILiTPF-TJG3ySrNfk0Gmh5iXfuGHMYQDEVlO0XNQW_tHYlOa9KaXPBoPOoZClK5n94RTlrD4e8ltq3TSw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDg3NjYzLCJleHAiOjE2NzUwOTEyNjN9.cW15KJ2PuLznCAT4mHivg-ZSfMSqCirkhSQa0ZRJ59JDjUeilFIq-KNcgOKJoLTVp4YaTZdG0bl6s-HyIKUqww
 Content-Type: application/json
 
 {
   "message" : "He",
-  "chatId" : 2,
-  "date" : "2023-01-29"
+  "chatId" : 1,
+  "date" : "2024-01-31"
 }

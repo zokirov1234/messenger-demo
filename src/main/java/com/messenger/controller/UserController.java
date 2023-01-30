@@ -1,5 +1,6 @@
 package com.messenger.controller;
 
+import com.messenger.model.dto.chat.ChatResponseListDTO;
 import com.messenger.model.dto.user.UserFindReceive;
 import com.messenger.model.dto.user.UserResponseDTO;
 import com.messenger.model.dto.user.UserUpdateProfile;
@@ -63,6 +64,14 @@ public class UserController {
                 = profilePhotoService.setPhotoOnUser(file);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getAll/chats")
+    public ResponseEntity<List<ChatResponseListDTO>> getAllChats() {
+        
+        List<ChatResponseListDTO> responseListDTOS = userService.getAllChats();
+
+        return ResponseEntity.ok().body(responseListDTOS);
     }
 
 }

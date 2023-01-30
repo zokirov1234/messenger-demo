@@ -22,7 +22,7 @@
 
 11. Pin the messages and search messages with date or without date in chats(group,channels ..) (+);
 
-12. Divide the groups and channels into private and public types;
+12. Divide the groups and channels into private and public types (+);
 
 13. Create folders for chats (study, work ..);
 

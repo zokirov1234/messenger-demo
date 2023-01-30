@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ChannelRepository extends JpaRepository<ChannelEntity, Integer> {
@@ -14,4 +15,6 @@ public interface ChannelRepository extends JpaRepository<ChannelEntity, Integer>
     @Modifying
     @Query("update ChannelEntity ch set ch.numberOfSubscribers = ?1 where ch.id = ?2")
     void setNumberOfSubscribers(int amount, int channelId);
+
+    Optional<ChannelEntity> findByChatId(int chatId);
 }

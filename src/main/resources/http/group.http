@@ -12,7 +12,7 @@ groupId-1
 
 ###
 POST http://localhost:8080/group/create
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDA2ODYwLCJleHAiOjE2NzUwMTA0NjB9.zNufoXCaSEV2QkthoqI178uNpXBPUAc8S_EHxKapcUSk2E89kx1oxw2z1uFoubO5khRhItHL6YLGWct70bkI6w
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAwMjI2LCJleHAiOjE2NzUxMDM4MjZ9.oEB0Hdmex1DzdROXOObsgWh3CS89lKZrivDKMb5gMWdgEe7tWRVqm87J_H5TeZMHlNwCJEk1fcFT3NYXP-KaYw
 Content-Type: application/json
 
 {

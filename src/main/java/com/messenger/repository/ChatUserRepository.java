@@ -17,6 +17,9 @@ public interface ChatUserRepository extends JpaRepository<ChatUserEntity, Intege
             "ch.user.id <> ?1")
     List<ChatUserEntity> getFriendsByChatId(int userId);
 
+    @Query("select ch from ChatUserEntity ch where ch.chat.id = ?1 and ch.user.id <> ?2")
+    Optional<ChatUserEntity> getFriend(int chatId, int userId);
+
 
     Optional<ChatUserEntity> findByChatIdAndUserId(int chatId, int userId);
 

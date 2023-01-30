@@ -1,10 +1,14 @@
 package com.messenger.service;
 
 import com.messenger.exp.BadRequestException;
+import com.messenger.model.dto.chat.ChatResponseListDTO;
+import com.messenger.model.dto.message.MessageGetResponseDTO;
 import com.messenger.model.dto.user.UserResponseDTO;
 import com.messenger.model.dto.user.UserUpdateProfile;
-import com.messenger.model.entity.UserEntity;
-import com.messenger.repository.UserRepository;
+import com.messenger.model.entity.*;
+import com.messenger.model.enums.ProfileType;
+import com.messenger.repository.*;
+import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,14 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final MessageRepository messageRepository;
+
+    private final ChatUserRepository chatUserRepository;
+
+    private final GroupRepository groupRepository;
+
+    private final ChannelRepository channelRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -93,4 +105,63 @@ public class UserService {
         return "success";
     }
 
+    public List<ChatResponseListDTO> getAllChats() {
+
+        UserEntity user = userRepository.findByUsernameForServices(CurrentUserUtil.getCurrentUser());
+
+        List<ChatResponseListDTO> responseListDTO = new ArrayList<>();
+
+        for (MessageEntity message : messageRepository.findBySenderId(user.getId())) {
+
+            Optional<ChannelEntity> channel = channelRepository.findByChatId(message.getChat().getId());
+            Optional<GroupEntity> group = groupRepository.findByChatId(message.getChat().getId());
+
+            if (channel.isPresent()) {
+                List<MessageGetResponseDTO> list = new ArrayList<>();
+                list.add(MessageGetResponseDTO.builder()
+                        .chatId(message.getChat().getId())
+                        .messageId(message.getId())
+                        .sent(message.getCreatedAt())
+                        .message(message.getMessage())
+                        .username(userRepository.findById(message.getSenderId()).get().getUsername())
+                        .build());
+                responseListDTO.add(ChatResponseListDTO.builder()
+                        .chatName(channel.get().getName())
+                        .chatType(ProfileType.CHANNEL)
+                        .messages(list)
+                        .build());
+            } else if (group.isPresent()) {
+                List<MessageGetResponseDTO> responseDTOS = new ArrayList<>();
+                responseDTOS.add(MessageGetResponseDTO.builder()
+                        .chatId(message.getChat().getId())
+                        .messageId(message.getId())
+                        .sent(message.getCreatedAt())
+                        .message(message.getMessage())
+                        .username(userRepository.findById(message.getSenderId()).get().getUsername())
+                        .build());
+                responseListDTO.add(ChatResponseListDTO.builder()
+                        .chatName(group.get().getName())
+                        .chatType(ProfileType.GROUP)
+                        .messages(responseDTOS)
+                        .build());
+            } else {
+                List<MessageGetResponseDTO> responseDTOS = new ArrayList<>();
+                Optional<ChatUserEntity> friend = chatUserRepository.getFriend(message.getChat().getId(), message.getSenderId());
+                responseDTOS.add(MessageGetResponseDTO.builder()
+                        .chatId(message.getChat().getId())
+                        .messageId(message.getId())
+                        .sent(message.getCreatedAt())
+                        .message(message.getMessage())
+                        .username(userRepository.findById(message.getSenderId()).get().getUsername())
+                        .build());
+                responseListDTO.add(ChatResponseListDTO.builder()
+                        .chatName(friend.get().getUser().getName())
+                        .chatType(ProfileType.USER)
+                        .messages(responseDTOS)
+                        .build());
+            }
+        }
+
+        return responseListDTO;
+    }
 }

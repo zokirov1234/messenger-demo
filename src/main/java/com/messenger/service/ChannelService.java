@@ -5,8 +5,10 @@ import com.messenger.exp.ItemNotFoundException;
 import com.messenger.exp.NotPermissionException;
 import com.messenger.model.dto.channel.*;
 import com.messenger.model.entity.*;
+import com.messenger.model.enums.MessageTypes;
 import com.messenger.model.enums.Permission;
 import com.messenger.model.enums.PinType;
+import com.messenger.model.enums.ProfileType;
 import com.messenger.repository.*;
 import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
@@ -42,7 +44,7 @@ public class ChannelService {
             throw new BadRequestException("Channel already exists");
         }
 
-        ChatEntity chatEntity = new ChatEntity();
+        ChatEntity chatEntity = ChatEntity.builder().profileType(ProfileType.CHANNEL).build();
         ChannelEntity channel1 = channelRepository.save(
                 ChannelEntity.builder()
                         .name(channelCreatedRequest.getChannelName())
@@ -100,6 +102,7 @@ public class ChannelService {
                         .senderId(admin.getId())
                         .message(channelBroadCastReceiveDTO.getMessage())
                         .pinType(PinType.UNPINNED)
+                        .type(MessageTypes.TEXT)
                         .chat(channel.getChat())
                         .build()
         );

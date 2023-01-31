@@ -34,7 +34,7 @@ public class MessageController {
     public ResponseEntity<?> sendMessage(
             @RequestBody @Valid MessageSendDTO messageSendDTO
     ) {
-        String response = messageService.sendMessage(messageSendDTO, CurrentUserUtil.getCurrentUser());
+        String response = messageService.sendMessage(messageSendDTO);
 
         return ResponseEntity.ok().body(response);
     }

@@ -44,6 +44,16 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+"username" : "josh",
+"password" : "123"
+}
+
+###
+
 //eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc0Nzk4OTcwLCJleHAiOjE2NzQ4MDI1NzB9.O-DoAarGBS24SLQi4ivApX2ZVppu-tM48VEKInhuBU4le3EMg18-fcRucstWoYqzd86tV4rpnP2nMDwX02WW7g
 
 
@@ -53,5 +63,10 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/user/getAll/chats
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAxMjI4LCJleHAiOjE2NzUxMDQ4Mjh9.MLI85UXuGHad4y_1c_Ru6BVIGgRsmWSe9_iARmFLSI6UUvCHSMo6oAjZzvZHQok6HLo_T9pdgTupKYaEv1ZzWQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc1MTY0Mjg0LCJleHAiOjE2NzUxNjc4ODR9.kubRoJ-YMPx-tt5j_zJbSydQ_U5UbZiiZUJtVO8XqF5TQTk_lJCnXalqO00S1OMwZAenP-9-wdgEbB7ur2XEig
+Content-Type: application/json
+
+###
+GET http://localhost:8080/user/get/private/chats
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc1MTY0Mjg0LCJleHAiOjE2NzUxNjc4ODR9.kubRoJ-YMPx-tt5j_zJbSydQ_U5UbZiiZUJtVO8XqF5TQTk_lJCnXalqO00S1OMwZAenP-9-wdgEbB7ur2XEig
 Content-Type: application/json

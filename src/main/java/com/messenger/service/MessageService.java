@@ -8,10 +8,12 @@ import com.messenger.model.entity.MessageEntity;
 import com.messenger.model.entity.UserEntity;
 import com.messenger.model.enums.MessageTypes;
 import com.messenger.model.enums.PinType;
+import com.messenger.model.enums.ProfileType;
 import com.messenger.repository.ChatRepository;
 import com.messenger.repository.ChatUserRepository;
 import com.messenger.repository.MessageRepository;
 import com.messenger.repository.UserRepository;
+import com.messenger.util.CurrentUserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,9 +53,9 @@ public class MessageService {
     }
 
 
-    public String sendMessage(MessageSendDTO messageSendDTO, String username) {
+    public String sendMessage(MessageSendDTO messageSendDTO) {
 
-        UserEntity owner = userRepository.findByUsernameForServices(username);
+        UserEntity owner = userRepository.findByUsernameForServices(CurrentUserUtil.getCurrentUser());
 
         Optional<UserEntity> friend = userRepository.findById(messageSendDTO.getFriendId());
         Optional<ChatEntity> chat = chatRepository.findById(messageSendDTO.getChatId());
@@ -63,7 +65,7 @@ public class MessageService {
         }
 
 
-        ChatEntity save = chatRepository.save(new ChatEntity());
+        ChatEntity save = chatRepository.save(ChatEntity.builder().profileType(ProfileType.USER).build());
         if (chat.isEmpty()) {
             chatUserRepository.save(
                     ChatUserEntity.builder()

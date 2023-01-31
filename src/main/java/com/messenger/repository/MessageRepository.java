@@ -29,7 +29,7 @@ public interface MessageRepository extends JpaRepository<MessageEntity, Integer>
 
     List<MessageEntity> findBySenderId(int senderId);
 
-    @Query(value = "select m from MessageEntity m  where m.message like %?1% and m.chat.id = ?2 and m.createdAt < to_timestamp(?3, 'YYYY-MM-DD')")
+    @Query(value = "select m from MessageEntity m  where m.message like %?1% and m.chat.id = ?2 and m.createdAt >= to_timestamp(?3, 'YYYY-MM-DD')")
     List<MessageEntity> findByMessageAndChatIdWithDate(String message, int chatId, String date);
 
     void deleteByChatId(int chatId);

@@ -24,8 +24,8 @@
 
 12. Divide the groups and channels into private and public types (+);
 
-13. Create folders for chats (study, work ..);
+13. Create folders for chats (study, work ..) -> instant of get chats and private chats where subscribed or typed (+);
 
-14. Review and optimize code and test manually;
+14. Review and optimize code and test manually (+);
 
 15. Add unit testing and mockito, swagger and logs;

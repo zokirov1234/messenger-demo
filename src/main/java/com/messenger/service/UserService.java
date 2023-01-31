@@ -164,4 +164,32 @@ public class UserService {
 
         return responseListDTO;
     }
+
+    public List<ChatResponseListDTO> getAllPrivateChats() {
+        UserEntity user = userRepository.findByUsernameForServices(CurrentUserUtil.getCurrentUser());
+
+        List<ChatResponseListDTO> responseListDTOS = new ArrayList<>();
+        for (ChatUserEntity chatUser : chatUserRepository.findByUserId(user.getId(), ProfileType.USER)){
+            List<MessageEntity> messages = messageRepository.getAllByChatId(chatUser.getChat().getId());
+
+            for (MessageEntity messageEntity : messages){
+                List<MessageGetResponseDTO> getResponseDTOS = new ArrayList<>();
+                Optional<ChatUserEntity> friend = chatUserRepository.getFriend(messageEntity.getChat().getId(), messageEntity.getSenderId());
+                getResponseDTOS.add(MessageGetResponseDTO.builder()
+                        .chatId(messageEntity.getChat().getId())
+                        .messageId(messageEntity.getId())
+                        .sent(messageEntity.getCreatedAt())
+                        .message(messageEntity.getMessage())
+                        .username(userRepository.findById(messageEntity.getSenderId()).get().getUsername())
+                        .build());
+                responseListDTOS.add(ChatResponseListDTO.builder()
+                                .messages(getResponseDTOS)
+                                .chatName(friend.get().getUser().getName())
+                                .chatType(ProfileType.USER)
+                        .build());
+            }
+        }
+
+        return responseListDTOS;
+    }
 }

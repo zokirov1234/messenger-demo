@@ -7,6 +7,7 @@ import com.messenger.model.dto.group.GroupAddReceiveDTO;
 import com.messenger.model.dto.group.GroupAddUserDTO;
 import com.messenger.model.entity.*;
 import com.messenger.model.enums.Permission;
+import com.messenger.model.enums.ProfileType;
 import com.messenger.model.enums.Types;
 import com.messenger.repository.*;
 import com.messenger.util.CurrentUserUtil;
@@ -46,7 +47,7 @@ public class GroupService {
         if (groupAddReceiveDTO.getUsernames().isEmpty()) {
             throw new ItemNotFoundException("Users not found");
         }
-        ChatEntity chat = new ChatEntity();
+        ChatEntity chat = ChatEntity.builder().profileType(ProfileType.GROUP).build();
 
         GroupEntity group = groupRepository.save(
                 GroupEntity.builder()

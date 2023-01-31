@@ -15,12 +15,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NoIiwiaWF0IjoxNjc0NzQ5M
 ###
 
 POST http://localhost:8080/message/send
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTAxMjI4LCJleHAiOjE2NzUxMDQ4Mjh9.MLI85UXuGHad4y_1c_Ru6BVIGgRsmWSe9_iARmFLSI6UUvCHSMo6oAjZzvZHQok6HLo_T9pdgTupKYaEv1ZzWQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTY3NjI4LCJleHAiOjE2NzUxNzEyMjh9.9rzCH62Ex1dyWmr8xXgokAUGkay3VXcs1IV-sEqaYI8JJOA0GfS5_Ykcz8DPGDCn9waYTtSoCbeTOg7P6BeJRg
 Content-Type: application/json
 
 {
-  "chatId" : 2,
-  "message" : "Done",
+  "chatId" : 1,
+  "message" : "Hi how are you",
   "friendId" : 1
 }
 
@@ -41,11 +41,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/message/search
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MDg3NjYzLCJleHAiOjE2NzUwOTEyNjN9.cW15KJ2PuLznCAT4mHivg-ZSfMSqCirkhSQa0ZRJ59JDjUeilFIq-KNcgOKJoLTVp4YaTZdG0bl6s-HyIKUqww
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjc1MTYzODU0LCJleHAiOjE2NzUxNjc0NTR9._2o8Kl3qXQEtsQrDem2bErflszS_131G9THDN8ou5yyMSEG7wGrLKqK0iKUwH588z0Ss1A2o9d_KWQUUjSNtiQ
 Content-Type: application/json
 
 {
-  "message" : "He",
+  "message" : "y",
   "chatId" : 1
 }
 

@@ -74,4 +74,12 @@ public class UserController {
         return ResponseEntity.ok().body(responseListDTOS);
     }
 
+    @GetMapping("/get/private/chats")
+    public ResponseEntity<List<ChatResponseListDTO>> getPrivateChats() {
+
+        List<ChatResponseListDTO> responseListDTOS = userService.getAllPrivateChats();
+
+        return ResponseEntity.ok().body(responseListDTOS);
+    }
+
 }

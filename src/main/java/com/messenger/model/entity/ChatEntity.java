@@ -1,12 +1,12 @@
 package com.messenger.model.entity;
 
+import com.messenger.model.enums.ProfileType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @ToString
@@ -20,6 +20,9 @@ public class ChatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Enumerated(EnumType.STRING)
+    private ProfileType profileType;
 
     @CreationTimestamp
     @Column(name = "created_at")
